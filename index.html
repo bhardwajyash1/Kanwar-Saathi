@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanwar Saathi - Kanwar Yatra Registration Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-orange: #FF6B35;
+            --primary-saffron: #FF9933;
+            --sacred-green: #138808;
+            --holy-white: #FFFFFF;
+            --divine-gold: #FFD700;
+            --text-dark: #2C3E50;
+            --bg-light: #F8F9FA;
+            --border-gray: #DEE2E6;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1F2937;
+            text-decoration: none;
+        }
+
+        .navbar-logo-icon {
+            font-size: 28px;
+        }
+
+        .navbar-logo-text {
+            background: linear-gradient(135deg, #FF7A00 0%, #E66A00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-login {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .btn-user-login {
+            background: linear-gradient(135deg, #FF7A00 0%, #E66A00 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(255, 122, 0, 0.25);
+        }
+
+        .btn-user-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 122, 0, 0.35);
+        }
+
+        .btn-admin-login {
+            background: white;
+            color: #374151;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-admin-login:hover {
+            background: #F9FAFB;
+            border-color: #D1D5DB;
+            transform: translateY(-2px);
+        }
+
+        .login-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #374151;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Mobile Dropdown Menu */
+        .navbar-mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .navbar-mobile-menu.active {
+            display: flex;
+        }
+
+        .navbar-mobile-menu .btn-login {
+            width: 100%;
+            justify-content: center;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #F8FAFC;
+            min-height: 100vh;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Hero Section - Professional Design */
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 120px 20px 100px;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(255, 122, 0, 0.05) 0%, 
+                rgba(255, 153, 51, 0.08) 50%, 
+                rgba(255, 107, 53, 0.05) 100%);
+        }
+
+        .pattern-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 122, 0, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 153, 51, 0.03) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Badge */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(255, 122, 0, 0.1), rgba(255, 153, 51, 0.1));
+            border: 1.5px solid rgba(255, 122, 0, 0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-icon {
+            font-size: 16px;
+        }
+
+        .badge-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #D97706;
+            letter-spacing: 0.3px;
+        }
+
+        /* Hero Title */
+        .hero-title {
+            font-size: 64px;
+            font-weight: 800;
+            color: #1F2937;
+            margin: 0 0 20px 0;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subheading {
+            font-size: 24px;
+            font-weight: 600;
+            color: #4B5563;
+            margin: 0 0 16px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #6B7280;
+            margin: 0 auto 40px;
+            max-width: 720px;
+            line-height: 1.7;
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #FF7A00 0%, #E66A00 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(255, 122, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .primary-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .primary-btn:hover::before {
+            left: 100%;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 122, 0, 0.35);
+        }
+
+        .primary-btn:active {
+            transform: translateY(0);
+        }
+
+        .secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: #FF7A00;
+            padding: 16px 32px;
+            border-radius: 12px;
+            border: 2px solid #FFE8D6;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .secondary-btn:hover {
+            background: #FFF7F0;
+            border-color: #FF7A00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .secondary-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .secondary-btn:hover svg {
+            transform: scale(1.1);
+        }
+
+        /* Hero Stats */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 60px;
+            padding: 32px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #FF7A00;
+            margin-bottom: 4px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, #E5E7EB, transparent);
+        }
+
+        /* Trust Section */
+        .trust-section {
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 32px 20px;
+            margin-bottom: 60px;
+        }
+
+        .trust-items {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trust-icon {
+            font-size: 24px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #FFF7F0, #FFE8D6);
+            border-radius: 12px;
+        }
+
+        .trust-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* Registration Form Card */
+        .registration-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-saffron);
+        }
+
+        .form-header h2 {
+            color: var(--primary-orange);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Form Sections */
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary-orange);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--primary-saffron);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .required {
+            color: #E74C3C;
+            margin-left: 0.25rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.9rem;
+            border: 2px solid var(--border-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-saffron);
+            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+        }
+
+        .form-group input[disabled] {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        /* OTP Section */
+        .otp-section {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .otp-section .form-group {
+            flex: 1;
+        }
+
+        .btn-send-otp,
+        .btn-verify-otp {
+            padding: 0.9rem 1.5rem;
+            background: var(--sacred-green);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-send-otp:hover,
+        .btn-verify-otp:hover {
+            background: #0d6a06;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(19, 136, 8, 0.3);
+        }
+
+        .btn-send-otp:disabled,
+        .btn-verify-otp:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .verification-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-verified {
+            color: var(--sacred-green);
+            font-weight: 600;
+        }
+
+        .status-pending {
+            color: #F39C12;
+            font-weight: 600;
+        }
+
+        /* Vehicle Section */
+        .vehicle-toggle {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .toggle-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-option:hover {
+            background: white;
+        }
+
+        .toggle-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary-orange);
+        }
+
+        .toggle-option label {
+            cursor: pointer;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .vehicle-details {
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .vehicle-details.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Submit Button */
+        .submit-section {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border-gray);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-saffron) 0%, var(--primary-orange) 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Token Display */
+        .token-display {
+            display: none;
+            background: linear-gradient(135deg, var(--sacred-green) 0%, #0d8a05 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(19, 136, 8, 0.3);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .token-display.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .token-header {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .token-number {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 0.3rem;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .token-info {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .token-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-download,
+        .btn-print {
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--sacred-green);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover,
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #666;
+            margin-top: 3rem;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 0.5rem;
+        }
+
+        .spinner.active {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-buttons {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .navbar-logo {
+                font-size: 20px;
+            }
+
+            .navbar-logo-icon {
+                font-size: 24px;
+            }
+
+            .hero {
+                padding: 80px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 42px;
+                letter-spacing: -1px;
+            }
+
+            .subheading {
+                font-size: 20px;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+                padding: 24px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .stat-label {
+                font-size: 12px;
+            }
+
+            .stat-divider {
+                height: 40px;
+            }
+
+            .trust-items {
+                gap: 32px;
+            }
+
+            .trust-text {
+                font-size: 14px;
+            }
+
+            .registration-card {
+                padding: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .otp-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-send-otp,
+            .btn-verify-otp {
+                width: 100%;
+            }
+
+            .token-number {
+                font-size: 2rem;
+                letter-spacing: 0.2rem;
+            }
+
+            .token-actions {
+                flex-direction: column;
+            }
+
+            .btn-download,
+            .btn-print {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .subheading {
+                font-size: 18px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .hero-badge {
+                padding: 6px 16px;
+            }
+
+            .badge-text {
+                font-size: 12px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .primary-btn,
+            .secondary-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .stat-divider {
+                width: 100%;
+                height: 1px;
+            }
+
+            .trust-items {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .registration-card {
+                padding: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Helper Text */
+        .helper-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <span class="navbar-logo-icon">🕉️</span>
+                <span class="navbar-logo-text">Kanwar Saathi</span>
+            </a>
+            
+            <div class="navbar-buttons">
+                <button class="btn-login btn-user-login" onclick="userLogin()">
+                    <svg class="login-icon" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>User Login</span>
+                </button>
+                <button class="btn-login btn-admin-login" onclick="adminLogin()">
+                    <svg class="login-icon" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Admin Login</span>
+                </button>
+            </div>
+
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="navbar-mobile-menu" id="mobileMenu">
+            <button class="btn-login btn-user-login" onclick="userLogin()">
+                <svg class="login-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                </svg>
+                <span>User Login</span>
+            </button>
+            <button class="btn-login btn-admin-login" onclick="adminLogin()">
+                <svg class="login-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
+                </svg>
+                <span>Admin Login</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="gradient-overlay"></div>
+            <div class="pattern-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="hero-badge">
+                <span class="badge-icon">🕉️</span>
+                <span class="badge-text">Government of Uttarakhand Initiative</span>
+            </div>
+            <h1 class="hero-title">Kanwar Saathi</h1>
+            <p class="subheading">
+                Official Registration Portal for Kanwar Yatra <span id="currentYear"></span>
+            </p>
+            <p class="description">
+                Secure and streamlined registration for pilgrims traveling to Uttarakhand. Register online, get verified, and receive your digital token for a safe journey.
+            </p>
+            <div class="cta-buttons">
+                <button class="primary-btn" onclick="document.getElementById('registrationForm').scrollIntoView({ behavior: 'smooth' })">
+                    <span>Register Now</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="secondary-btn" onclick="showGuidelines()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M10 14V10M10 6H10.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>View Guidelines</span>
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Registered Pilgrims</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Digital Verification</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Available</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Trust Indicators -->
+    // OTP input validation (numbers only)
+        document.querySelectorAll('#aadharOTP, #phoneOTP').forEach(input => {
+            input.addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6);
+            });
+        });
+    </script>
+</body>
+</html>    </div>
+                <div class="trust-item">
+                    <div class="trust-icon">📱</div>
+                    <div class="trust-text">Instant Digital Token</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🚔</div>
+                    <div class="trust-text">Police Monitored</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 1rem;">
+        <!-- Messages -->
+        <div id="messageBox" class="message"></div>
+
+        <!-- Registration Form -->
+        <div class="registration-card" id="registrationForm">
+            <div class="form-header">
+                <h2>Kanwar Yatra Registration Form</h2>
+                <p>Please fill in all required details for verification by authorities</p>
+            </div>
+
+            <form id="mainForm">
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        👤 Personal Information
+                    </h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="fullName" name="fullName" placeholder="As per Aadhar Card" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="aadharNumber">Aadhar Number <span class="required">*</span></label>
+                            <input type="text" id="aadharNumber" name="aadharNumber" placeholder="1234 5678 9012" maxlength="14" required>
+                            <span class="helper-text">Enter 12-digit Aadhar number</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dateOfBirth">Date of Birth <span class="required">*</span></label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gender">Gender <span class="required">*</span></label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Aadhar OTP Verification -->
+                    <div class="otp-section">
+                        <div class="form-group">
+                            <label for="aadharOTP">Aadhar OTP <span class="required">*</span></label>
+                            <input type="text" id="aadharOTP" name="aadharOTP" placeholder="Enter 6-digit OTP" maxlength="6" disabled>
+                        </div>
+                        <button type="button" class="btn-send-otp" id="sendAadharOTP">Send OTP</button>
+                        <button type="button" class="btn-verify-otp" id="verifyAadharOTP" style="display: none;">Verify</button>
+                    </div>
+                    <div class="verification-status" id="aadharStatus">
+                        <span class="status-pending">⏳ Aadhar verification pending</span>
+                    </div>
+                </div>
+
+                <!-- Contact Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        📱 Contact Information
+                    </h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phoneNumber">Mobile Number <span class="required">*</span></label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter 10-digit mobile number" maxlength="10" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address (Optional)</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                        </div>
+                    </div>
+
+                    <!-- Phone OTP Verification -->
+                    <div class="otp-section">
+                        <div class="form-group">
+                            <label for="phoneOTP">Phone OTP <span class="required">*</span></label>
+                            <input type="text" id="phoneOTP" name="phoneOTP" placeholder="Enter 6-digit OTP" maxlength="6" disabled>
+                        </div>
+                        <button type="button" class="btn-send-otp" id="sendPhoneOTP">Send OTP</button>
+                        <button type="button" class="btn-verify-otp" id="verifyPhoneOTP" style="display: none;">Verify</button>
+                    </div>
+                    <div class="verification-status" id="phoneStatus">
+                        <span class="status-pending">⏳ Phone verification pending</span>
+                    </div>
+                </div>
+
+                <!-- Address Information -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        🏠 Address Information
+                    </h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City/District <span class="required">*</span></label>
+                            <input type="text" id="city" name="city" placeholder="Your city" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="state">State <span class="required">*</span></label>
+                            <select id="state" name="state" required>
+                                <option value="">Select State</option>
+                                <option value="andhra-pradesh">Andhra Pradesh</option>
+                                <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                                <option value="assam">Assam</option>
+                                <option value="bihar">Bihar</option>
+                                <option value="chhattisgarh">Chhattisgarh</option>
+                                <option value="goa">Goa</option>
+                                <option value="gujarat">Gujarat</option>
+                                <option value="haryana">Haryana</option>
+                                <option value="himachal-pradesh">Himachal Pradesh</option>
+                                <option value="jharkhand">Jharkhand</option>
+                                <option value="karnataka">Karnataka</option>
+                                <option value="kerala">Kerala</option>
+                                <option value="madhya-pradesh">Madhya Pradesh</option>
+                                <option value="maharashtra">Maharashtra</option>
+                                <option value="manipur">Manipur</option>
+                                <option value="meghalaya">Meghalaya</option>
+                                <option value="mizoram">Mizoram</option>
+                                <option value="nagaland">Nagaland</option>
+                                <option value="odisha">Odisha</option>
+                                <option value="punjab">Punjab</option>
+                                <option value="rajasthan">Rajasthan</option>
+                                <option value="sikkim">Sikkim</option>
+                                <option value="tamil-nadu">Tamil Nadu</option>
+                                <option value="telangana">Telangana</option>
+                                <option value="tripura">Tripura</option>
+                                <option value="uttar-pradesh">Uttar Pradesh</option>
+                                <option value="uttarakhand">Uttarakhand</option>
+                                <option value="west-bengal">West Bengal</option>
+                                <option value="delhi">Delhi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Complete Address <span class="required">*</span></label>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter your complete address" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Destination Information -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        🛕 Yatra Destination
+                    </h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="destination">Destination in Uttarakhand <span class="required">*</span></label>
+                            <select id="destination" name="destination" required>
+                                <option value="">Select Destination</option>
+                                <option value="haridwar">Haridwar (Har Ki Pauri)</option>
+                                <option value="rishikesh">Rishikesh</option>
+                                <option value="neelkanth">Neelkanth Mahadev</option>
+                                <option value="gaumukh">Gaumukh</option>
+                                <option value="gangotri">Gangotri</option>
+                                <option value="yamunotri">Yamunotri</option>
+                                <option value="kedarnath">Kedarnath</option>
+                                <option value="badrinath">Badrinath</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="travelDate">Expected Travel Date <span class="required">*</span></label>
+                            <input type="date" id="travelDate" name="travelDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="groupSize">Number of People in Group <span class="required">*</span></label>
+                        <input type="number" id="groupSize" name="groupSize" min="1" max="50" placeholder="Enter group size" required>
+                    </div>
+                </div>
+
+                <!-- Vehicle Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        🚗 Vehicle Information
+                    </h3>
+                    
+                    <div class="vehicle-toggle">
+                        <div class="toggle-option">
+                            <input type="radio" id="vehicleNo" name="hasVehicle" value="no" checked>
+                            <label for="vehicleNo">I am not using any vehicle</label>
+                        </div>
+                        <div class="toggle-option">
+                            <input type="radio" id="vehicleYes" name="hasVehicle" value="yes">
+                            <label for="vehicleYes">I am using my own vehicle</label>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-details" id="vehicleDetails">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vehicleType">Vehicle Type <span class="required">*</span></label>
+                                <select id="vehicleType" name="vehicleType">
+                                    <option value="">Select Type</option>
+                                    <option value="bike">Motorcycle/Bike</option>
+                                    <option value="car">Car</option>
+                                    <option value="suv">SUV</option>
+                                    <option value="tempo">Tempo Traveller</option>
+                                    <option value="bus">Mini Bus</option>
+                                    <option value="truck">Truck/Tractor</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="vehicleNumber">Vehicle Registration Number <span class="required">*</span></label>
+                                <input type="text" id="vehicleNumber" name="vehicleNumber" placeholder="e.g., DL01AB1234" style="text-transform: uppercase;">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="licenseNumber">Driving License Number <span class="required">*</span></label>
+                                <input type="text" id="licenseNumber" name="licenseNumber" placeholder="Enter DL number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="vehicleCapacity">Vehicle Capacity (persons)</label>
+                                <input type="number" id="vehicleCapacity" name="vehicleCapacity" min="1" max="50" placeholder="Number of seats">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        🆘 Emergency Contact
+                    </h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="emergencyName">Emergency Contact Name <span class="required">*</span></label>
+                            <input type="text" id="emergencyName" name="emergencyName" placeholder="Contact person name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="emergencyPhone">Emergency Contact Number <span class="required">*</span></label>
+                            <input type="tel" id="emergencyPhone" name="emergencyPhone" placeholder="10-digit number" maxlength="10" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emergencyRelation">Relationship <span class="required">*</span></label>
+                        <select id="emergencyRelation" name="emergencyRelation" required>
+                            <option value="">Select Relationship</option>
+                            <option value="parent">Parent</option>
+                            <option value="spouse">Spouse</option>
+                            <option value="sibling">Sibling</option>
+                            <option value="friend">Friend</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Submit Section -->
+                <div class="submit-section">
+                    <button type="submit" class="btn-submit" id="submitBtn" disabled>
+                        Complete Registration
+                        <span class="spinner" id="submitSpinner"></span>
+                    </button>
+                    <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                        * Please verify both Aadhar and Phone before submitting
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Token Display (Hidden Initially) -->
+        <div class="token-display" id="tokenDisplay">
+            <div class="token-header">🎉 Registration Successful! 🎉</div>
+            <div class="token-info">Your Kanwar Yatra Registration Token Number:</div>
+            <div class="token-number" id="tokenNumber">KS-2026-XXXXX</div>
+            <div class="token-info">
+                <strong>Registered Devotee:</strong> <span id="tokenName"></span><br>
+                <strong>Destination:</strong> <span id="tokenDestination"></span><br>
+                <strong>Travel Date:</strong> <span id="tokenDate"></span><br>
+                <strong>Registration Date:</strong> <span id="tokenRegDate"></span>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 1rem;">
+                Please save this token number. It will be verified by authorities through biometric authentication.
+            </p>
+            <div class="token-actions">
+                <button class="btn-download" onclick="downloadToken()">📥 Download Token</button>
+                <button class="btn-print" onclick="printToken()">🖨️ Print Token</button>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.9;">
+                🙏 Har Har Mahadev 🙏<br>
+                May Lord Shiva bless your journey!
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>Kanwar Saathi</strong> - Official Registration Portal</p>
+        <p>Managed by Uttarakhand Police & Tourism Department</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            For assistance: 📞 1800-XXX-XXXX | 📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c5f595c5c435e586c474d425b4d5e5f4d4d584445024b435a024542">[email&#160;protected]</a>
+        </p>
+        <p style="margin-top: 0.5rem; color: #999; font-size: 0.85rem;">
+            © <span id="footerYear"></span> Kanwar Saathi. All rights reserved.
+        </p>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Initialize dynamic year display
+        (function() {
+            const currentYear = new Date().getFullYear();
+            document.getElementById('currentYear').textContent = currentYear;
+            document.getElementById('footerYear').textContent = currentYear;
+        })();
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // User login function
+        function userLogin() {
+            // Close mobile menu if open
+            document.getElementById('mobileMenu').classList.remove('active');
+            
+            // In production, this would redirect to user login page
+            alert('User Login\n\nRedirecting to user login page...\n\nFeatures:\n• View your registration\n• Download token\n• Update travel details\n• Track yatra status');
+            // window.location.href = '/user-login';
+        }
+
+        // Admin login function
+        function adminLogin() {
+            // Close mobile menu if open
+            document.getElementById('mobileMenu').classList.remove('active');
+            
+            // In production, this would redirect to admin login page
+            alert('Admin Login\n\nRedirecting to admin dashboard...\n\nFeatures:\n• Verify registrations\n• View pilgrim data\n• Generate reports\n• Biometric verification\n• Real-time monitoring');
+            // window.location.href = '/admin-login';
+        }
+
+        // State management
+        let aadharVerified = false;
+        let phoneVerified = false;
+        let aadharOTPSent = false;
+        let phoneOTPSent = false;
+
+        // Show guidelines function
+        function showGuidelines() {
+            alert(`KANWAR YATRA REGISTRATION GUIDELINES
+
+✓ Keep your Aadhar card ready for verification
+✓ Ensure your registered mobile number is active
+✓ Provide accurate vehicle details if traveling by vehicle
+✓ Emergency contact should be someone not traveling with you
+✓ Token number will be required at all checkpoints
+✓ Biometric verification will be done at entry points
+
+For assistance: 1800-XXX-XXXX
+
+Har Har Mahadev!`);
+        }
+
+        // Format Aadhar number with spaces
+        document.getElementById('aadharNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            if (value.length > 12) value = value.slice(0, 12);
+            
+            let formatted = value.match(/.{1,4}/g);
+            e.target.value = formatted ? formatted.join(' ') : value;
+            
+            // Reset verification if Aadhar changes
+            if (aadharVerified) {
+                aadharVerified = false;
+                updateSubmitButton();
+                document.getElementById('aadharStatus').innerHTML = '<span class="status-pending">⏳ Aadhar verification pending</span>';
+            }
+        });
+
+        // Format phone number
+        document.getElementById('phoneNumber').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+            
+            // Reset verification if phone changes
+            if (phoneVerified) {
+                phoneVerified = false;
+                updateSubmitButton();
+                document.getElementById('phoneStatus').innerHTML = '<span class="status-pending">⏳ Phone verification pending</span>';
+            }
+        });
+
+        // Send Aadhar OTP
+        document.getElementById('sendAadharOTP').addEventListener('click', function() {
+            const aadharNumber = document.getElementById('aadharNumber').value.replace(/\s/g, '');
+            
+            if (aadharNumber.length !== 12) {
+                showMessage('Please enter a valid 12-digit Aadhar number', 'error');
+                return;
+            }
+
+            // Simulate OTP sending (In production, this would call UIDAI API)
+            this.disabled = true;
+            this.innerHTML = 'Sending... <span class="spinner active"></span>';
+
+            setTimeout(() => {
+                this.style.display = 'none';
+                document.getElementById('aadharOTP').disabled = false;
+                document.getElementById('verifyAadharOTP').style.display = 'block';
+                aadharOTPSent = true;
+                showMessage('OTP sent to your registered mobile number with Aadhar', 'success');
+                this.innerHTML = 'Send OTP';
+                this.disabled = false;
+            }, 2000);
+        });
+
+        // Verify Aadhar OTP
+        document.getElementById('verifyAadharOTP').addEventListener('click', function() {
+            const otp = document.getElementById('aadharOTP').value;
+            
+            if (otp.length !== 6) {
+                showMessage('Please enter a valid 6-digit OTP', 'error');
+                return;
+            }
+
+            // Simulate OTP verification (In production, verify with UIDAI)
+            this.disabled = true;
+            this.innerHTML = 'Verifying... <span class="spinner active"></span>';
+
+            setTimeout(() => {
+                aadharVerified = true;
+                document.getElementById('aadharStatus').innerHTML = '<span class="status-verified">✅ Aadhar verified successfully</span>';
+                document.getElementById('aadharOTP').disabled = true;
+                this.style.display = 'none';
+                showMessage('Aadhar verification successful!', 'success');
+                updateSubmitButton();
+                this.innerHTML = 'Verify';
+                this.disabled = false;
+
+                // Auto-fill name from UIDAI (simulated)
+                if (!document.getElementById('fullName').value) {
+                    document.getElementById('fullName').value = 'Demo User Name';
+                }
+            }, 2000);
+        });
+
+        // Send Phone OTP
+        document.getElementById('sendPhoneOTP').addEventListener('click', function() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            
+            if (phoneNumber.length !== 10) {
+                showMessage('Please enter a valid 10-digit mobile number', 'error');
+                return;
+            }
+
+            // Simulate OTP sending
+            this.disabled = true;
+            this.innerHTML = 'Sending... <span class="spinner active"></span>';
+
+            setTimeout(() => {
+                this.style.display = 'none';
+                document.getElementById('phoneOTP').disabled = false;
+                document.getElementById('verifyPhoneOTP').style.display = 'block';
+                phoneOTPSent = true;
+                showMessage('OTP sent to your mobile number', 'success');
+                this.innerHTML = 'Send OTP';
+                this.disabled = false;
+            }, 2000);
+        });
+
+        // Verify Phone OTP
+        document.getElementById('verifyPhoneOTP').addEventListener('click', function() {
+            const otp = document.getElementById('phoneOTP').value;
+            
+            if (otp.length !== 6) {
+                showMessage('Please enter a valid 6-digit OTP', 'error');
+                return;
+            }
+
+            // Simulate OTP verification
+            this.disabled = true;
+            this.innerHTML = 'Verifying... <span class="spinner active"></span>';
+
+            setTimeout(() => {
+                phoneVerified = true;
+                document.getElementById('phoneStatus').innerHTML = '<span class="status-verified">✅ Phone verified successfully</span>';
+                document.getElementById('phoneOTP').disabled = true;
+                this.style.display = 'none';
+                showMessage('Phone verification successful!', 'success');
+                updateSubmitButton();
+                this.innerHTML = 'Verify';
+                this.disabled = false;
+            }, 2000);
+        });
+
+        // Vehicle toggle
+        document.querySelectorAll('input[name="hasVehicle"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const vehicleDetails = document.getElementById('vehicleDetails');
+                if (this.value === 'yes') {
+                    vehicleDetails.classList.add('active');
+                    // Make vehicle fields required
+                    document.getElementById('vehicleType').required = true;
+                    document.getElementById('vehicleNumber').required = true;
+                    document.getElementById('licenseNumber').required = true;
+                } else {
+                    vehicleDetails.classList.remove('active');
+                    // Remove required from vehicle fields
+                    document.getElementById('vehicleType').required = false;
+                    document.getElementById('vehicleNumber').required = false;
+                    document.getElementById('licenseNumber').required = false;
+                }
+            });
+        });
+
+        // Update submit button state
+        function updateSubmitButton() {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = !(aadharVerified && phoneVerified);
+        }
+
+        // Form submission
+        document.getElementById('mainForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!aadharVerified || !phoneVerified) {
+                showMessage('Please verify both Aadhar and Phone number before submitting', 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const spinner = document.getElementById('submitSpinner');
+            
+            submitBtn.disabled = true;
+            spinner.classList.add('active');
+            submitBtn.innerHTML = 'Processing Registration... <span class="spinner active"></span>';
+
+            // Simulate registration process
+            setTimeout(() => {
+                // Generate token
+                const tokenNumber = generateToken();
+                
+                // Get form data
+                const fullName = document.getElementById('fullName').value;
+                const destination = document.getElementById('destination').options[document.getElementById('destination').selectedIndex].text;
+                const travelDate = new Date(document.getElementById('travelDate').value).toLocaleDateString('en-IN');
+                const regDate = new Date().toLocaleString('en-IN');
+                
+                // Update token display
+                document.getElementById('tokenNumber').textContent = tokenNumber;
+                document.getElementById('tokenName').textContent = fullName;
+                document.getElementById('tokenDestination').textContent = destination;
+                document.getElementById('tokenDate').textContent = travelDate;
+                document.getElementById('tokenRegDate').textContent = regDate;
+                
+                // Hide form and show token
+                document.getElementById('registrationForm').style.display = 'none';
+                document.getElementById('tokenDisplay').classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                showMessage('Registration completed successfully! Your token has been generated.', 'success');
+                
+                submitBtn.disabled = false;
+                spinner.classList.remove('active');
+                submitBtn.innerHTML = 'Complete Registration';
+            }, 3000);
+        });
+
+        // Generate unique token
+        function generateToken() {
+            const year = new Date().getFullYear();
+            const random = Math.floor(Math.random() * 90000) + 10000;
+            return `KS-${year}-${random}`;
+        }
+
+        // Show message
+        function showMessage(message, type) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.className = `message ${type} active`;
+            
+            setTimeout(() => {
+                messageBox.classList.remove('active');
+            }, 5000);
+        }
+
+        // Download token (simulated)
+        function downloadToken() {
+            const tokenNumber = document.getElementById('tokenNumber').textContent;
+            const fullName = document.getElementById('tokenName').textContent;
+            
+            // Create download content
+            const content = `
+KANWAR SAATHI - REGISTRATION TOKEN
+====================================
+
+Token Number: ${tokenNumber}
+Name: ${fullName}
+Destination: ${document.getElementById('tokenDestination').textContent}
+Travel Date: ${document.getElementById('tokenDate').textContent}
+Registration Date: ${document.getElementById('tokenRegDate').textContent}
+
+Please present this token at checkpoints for verification.
+This token will be verified through biometric authentication.
+
+Har Har Mahadev!
+====================================
+            `;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `KanwarSaathi_Token_${tokenNumber}.txt`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            showMessage('Token downloaded successfully!', 'success');
+        }
+
+        // Print token
+        function printToken() {
+            window.print();
+        }
+
+        // Set minimum date for travel date (today)
+        document.getElementById('travelDate').min = new Date().toISOString().split('T')[0];
+
+        // Set maximum date for DOB (18 years ago)
+        const maxDOB = new Date();
+        maxDOB.setFullYear(maxDOB.getFullYear() - 18);
+        document.getElementById('dateOfBirth').max = maxDOB.toISOString().split('T')[0];
+
+        // Emergency phone validation
+        document.getElementById('emergencyPhone').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+        });
+
+        // OTP input validation (numbers only)
+        document.querySelectorAll('input[typ
